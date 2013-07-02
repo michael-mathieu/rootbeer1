@@ -13,7 +13,6 @@ import java.util.List;
 public interface IRootbeerInternal {
   public void runAll(Kernel jobs);
   public void runAll(List<Kernel> jobs);
-  public Iterator<Kernel> run(Iterator<Kernel> jobs);
   public void setThreadConfig(ThreadConfig thread_config);
   public void clearThreadConfig();
   public void printMem(int start, int len);

@@ -13,6 +13,5 @@ import java.util.List;
 public interface IRootbeer {
   
   void runAll(List<Kernel> jobs);
-  Iterator<Kernel> run(Iterator<Kernel> jobs);
 
 }
