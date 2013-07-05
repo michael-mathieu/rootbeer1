@@ -100,4 +100,16 @@ public class Rootbeer implements IRootbeer {
   public List<StatsRow> getStats(){
     return m_stats;
   }
+  
+  public List<GpuDevice> getGpuDevices(){
+    return GpuDeviceSetup.v().getDevices();
+  }
+  
+  public static void main(String[] args){
+    Rootbeer rootbeer = new Rootbeer();
+    List<GpuDevice> devices = rootbeer.getGpuDevices();
+    for(GpuDevice device : devices){
+      System.out.println("device: "+device.getId());
+    }
+  }
 }

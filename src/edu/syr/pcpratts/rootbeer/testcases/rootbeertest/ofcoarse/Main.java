@@ -38,10 +38,9 @@ public class Main implements TestSerializationFactory {
     List<Kernel> known_goods = provider.create();
 
     Rootbeer rootbeer = new Rootbeer();
-    int i = 0;
-    Iterator<Kernel> iter = rootbeer.run(objects.iterator());
-    while(iter.hasNext()){
-      Kernel result = iter.next();
+    rootbeer.runAll(objects);
+    for(int i = 0; i < objects.size(); ++i){
+      Kernel result = objects.get(i);
       Kernel known_good = known_goods.get(i);
       known_good.gpuMethod();
 
@@ -49,8 +48,6 @@ public class Main implements TestSerializationFactory {
         System.out.println("Failed at: "+i);
         System.exit(-1);
       }
-
-      ++i;
     }
     System.out.println("PASSED");
   }

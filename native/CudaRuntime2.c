@@ -55,7 +55,7 @@ static size_t gc_space_size;
 * allocd - number of bytes tried to allocate
 * id - variable the memory assignment was for
 */
-void throw_cuda_errror_exception(JNIEnv *env, const char *message, int error) {
+static void throw_cuda_errror_exception(JNIEnv *env, const char *message, int error) {
   char msg[1024];
   jclass exp;
   jfieldID fid;

@@ -59,7 +59,7 @@ public class ConcreteRootbeer implements IRootbeerInternal {
   }
 
   private void runOnCpu(List<Kernel> jobs) {
-    CpuRuntime.v().run(jobs);
+    CpuRuntime.v().run(jobs, m_rootbeer, m_threadConfig);
   }
 
   private void runOnCudaGpu(List<Kernel> jobs) {

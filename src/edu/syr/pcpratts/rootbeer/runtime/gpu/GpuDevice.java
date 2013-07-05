@@ -7,9 +7,8 @@
 
 package edu.syr.pcpratts.rootbeer.runtime.gpu;
 
-import edu.syr.pcpratts.rootbeer.runtime.PartiallyCompletedParallelJob;
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
-import java.util.Iterator;
+import java.util.List;
 
 public interface GpuDevice {
 
@@ -17,7 +16,7 @@ public interface GpuDevice {
   public long getMaxEnqueueSize();
   public long getNumBlocks();
   public void flushQueue();  
-  public PartiallyCompletedParallelJob run(Iterator<Kernel> blocks);  
+  public void run(List<Kernel> blocks);  
   public long getMaxMemoryAllocSize();
   public long getGlobalMemSize();
 }

@@ -23,7 +23,7 @@ public class GpuDeviceSetup {
   
   private List<GpuDevice> m_devices;
   
-  public GpuDeviceSetup(){
+  private GpuDeviceSetup(){
     CudaLoader loader = new CudaLoader();
     loader.load();
     

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CpuRuntime implements ParallelRuntime {
+public class CpuRuntime {
 
   private static CpuRuntime mInstance = null;
   private List<CpuCore> m_Cores;
@@ -31,27 +31,17 @@ public class CpuRuntime implements ParallelRuntime {
     }
   }
 
-  public PartiallyCompletedParallelJob run(Iterator<Kernel> jobs, Rootbeer rootbeer, ThreadConfig thread_config) throws Exception {
-    PartiallyCompletedParallelJob ret = new PartiallyCompletedParallelJob(jobs);
-    int enqueued = 0;
+  public void run(List<Kernel> jobs, Rootbeer rootbeer, ThreadConfig thread_config) {
+    Iterator<Kernel> iter = jobs.iterator();
     for(int i = 0; i < m_Cores.size(); ++i){
-      if(jobs.hasNext()){
-        Kernel job = jobs.next();
+      if(iter.hasNext()){
+        Kernel job = iter.next();
         m_Cores.get(i).enqueue(job);
-        enqueued++;
       }
     }
-
-    for(int i = 0; i < enqueued; ++i){
-      Kernel curr = m_Cores.get(i).getResult();
-      ret.enqueueJob(curr);
-    }
-    return ret;
   }
 
   public boolean isGpuPresent() {
     return true;
   }
-
-
 }

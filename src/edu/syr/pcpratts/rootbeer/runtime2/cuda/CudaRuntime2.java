@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class CudaRuntime2 implements ParallelRuntime {
+public class CudaRuntime2 {
 
   private static CudaRuntime2 m_Instance;
   
@@ -237,11 +237,10 @@ public class CudaRuntime2 implements ParallelRuntime {
     }
   }
   
-  public PartiallyCompletedParallelJob run(Iterator<Kernel> jobs, Rootbeer rootbeer, ThreadConfig thread_config){
+  public PartiallyCompletedParallelJob run(List<Kernel> jobs, Rootbeer rootbeer, ThreadConfig thread_config){
     
     m_runStopwatch.start();
     RootbeerGpu.setIsOnGpu(true);
-    m_Partial = new PartiallyCompletedParallelJob(jobs);
     
     boolean any_jobs = writeBlocks(jobs);
     if(any_jobs == false){
@@ -353,7 +352,8 @@ public class CudaRuntime2 implements ParallelRuntime {
     }
   }
   
-  public boolean writeBlocks(Iterator<Kernel> iter) {
+  public boolean writeBlocks(List<Kernel> jobs) {
+    Iterator<Kernel> iter = jobs.iterator();
     m_writeBlocksStopwatch.start();
     for(Memory mem : m_ToSpace){
       mem.setAddress(0);

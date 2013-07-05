@@ -74,9 +74,9 @@ public class NativeCpuDevice implements GpuDevice {
     heap.readRuntimeBasicBlock(kernel_template, num_threads);
   }
 
-  public PartiallyCompletedParallelJob run(Iterator<Kernel> blocks) {
+  public void run(List<Kernel> blocks) {
     NativeCpuGcHeap heap = new NativeCpuGcHeap(this);
-    int size = heap.writeRuntimeBasicBlocks(blocks);
+    int size = heap.writeRuntimeBasicBlocks(blocks.iterator());
     m_Blocks = heap.getBlocks();
     
     List<Memory> mems = heap.getMemory();    
@@ -97,8 +97,7 @@ public class NativeCpuDevice implements GpuDevice {
       gc_info.getBuffer().get(0), exceptions.getBuffer().get(0), 
       serializer.getClassRefArray(), size, block_shape, thread_shape, lib_name);
     
-    PartiallyCompletedParallelJob ret = heap.readRuntimeBasicBlocks();    
-    return ret;
+    heap.readRuntimeBasicBlocks();    
   }
   
   private native void runOnCpu(List<byte[]> to_space, int to_space_size, 

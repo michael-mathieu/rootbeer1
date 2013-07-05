@@ -48,8 +48,6 @@ public abstract class GcHeap {
 
   private long mMaxToHandleMapAddress;
 
-  private PartiallyCompletedParallelJob mWriteRet;
-
   private static Map<GpuDevice, GcHeap> mInstances = new HashMap<GpuDevice, GcHeap>();
 
   public static GcHeap v(GpuDevice device){
@@ -81,8 +79,6 @@ public abstract class GcHeap {
     m_CountWritten = 0;
 
     mMaxToHandleMapAddress = 0;
-
-    mWriteRet = null;
   }
   
   protected GcHeap(GpuDevice device){
@@ -112,7 +108,6 @@ public abstract class GcHeap {
   
   private CompiledKernel getBlock(Iterator<Kernel> jobs){
     Kernel job = jobs.next();
-    mWriteRet.enqueueJob(job);
     return (CompiledKernel) job;
   }
 
@@ -177,8 +172,6 @@ public abstract class GcHeap {
     mBlocks = new ArrayList<CompiledKernel>();
     m_HandlesList.clear();
     
-    mWriteRet = new PartiallyCompletedParallelJob(jobs);
-
     CompiledKernel first_block = getBlock(jobs);
 
     //mUsingGarbageCollector = first_block.isUsingGarbageCollector();
@@ -294,7 +287,7 @@ public abstract class GcHeap {
     }
   }
   
-  public PartiallyCompletedParallelJob readRuntimeBasicBlocks(){    
+  public void readRuntimeBasicBlocks(){    
     if(Configuration.getPrintMem()){
       BufferPrinter printer1 = new BufferPrinter();
       printer1.print(mToSpaceMemory, 0, 1024);
@@ -351,8 +344,6 @@ public abstract class GcHeap {
     if(mUsingGarbageCollector){
       mToHandleMapMemory.finishRead();
     }
-        
-    return mWriteRet;
   }
 
   protected abstract void makeSureReadyForUsingGarbageCollector();
