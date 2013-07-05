@@ -7,12 +7,8 @@
 
 package edu.syr.pcpratts.rootbeer.runtime;
 
-import edu.syr.pcpratts.rootbeer.configuration.Configuration;
-import edu.syr.pcpratts.rootbeer.runtime2.cuda.CudaRuntime2;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Rootbeer implements IRootbeer {
@@ -91,8 +87,10 @@ public class Rootbeer implements IRootbeer {
     return m_ranGpu;  
   }
   
-  public Iterator<Kernel> run(Iterator<Kernel> jobs) {
-    return m_Rootbeer.run(jobs);
+  public List<GpuDevice> getDevices(){
+    List<GpuDevice> ret = new ArrayList<GpuDevice>();
+    
+    return ret;
   }
   
   public void addStatsRow(StatsRow row) {

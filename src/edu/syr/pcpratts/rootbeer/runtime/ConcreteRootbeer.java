@@ -13,41 +13,34 @@ import edu.syr.pcpratts.rootbeer.generate.opencl.tweaks.Tweaks;
 import edu.syr.pcpratts.rootbeer.runtime.cpu.CpuRuntime;
 import edu.syr.pcpratts.rootbeer.runtime.nativecpu.NativeCpuRuntime;
 import edu.syr.pcpratts.rootbeer.runtime2.cuda.CudaRuntime2;
-import java.util.Iterator;
 import java.util.List;
 
 public class ConcreteRootbeer implements IRootbeerInternal {
 
-  private boolean m_GpuWorking;
   private Rootbeer m_rootbeer;
   private ThreadConfig m_threadConfig;
 
   public ConcreteRootbeer(Rootbeer rootbeer) {
     m_rootbeer = rootbeer;
-    m_GpuWorking = true;
   }
 
   public void runAll(List<Kernel> list) {
-    if (list.isEmpty()) {
+    if(list.isEmpty()){
       return;
     }
-    Iterator<Kernel> iter = run(list.iterator(), list.get(0));
-    while (iter.hasNext()) {
-      iter.next();
-    }
-  }
-
-  private Iterator<Kernel> run(Iterator<Kernel> iter, Kernel first) {
+    Kernel first = list.get(0);
     if (Configuration.runtimeInstance().getMode() == Configuration.MODE_NEMU) {
-      return runOnNativeCpu(iter);
+      runOnNativeCpu(list);
     } else if (Configuration.runtimeInstance().getMode() == Configuration.MODE_JEMU
             || first instanceof CompiledKernel == false) {
 
-      return runOnCpu(iter);
+      runOnCpu(list);
     } else {
-      return runOnCudaGpu(iter);
+      Tweaks.setInstance(new CudaTweaks());
+      runOnCudaGpu(list);
     }
   }
+
 
   public void runAll(Kernel kernel) {
     if (kernel instanceof CompiledKernel == false) {
@@ -60,42 +53,23 @@ public class ConcreteRootbeer implements IRootbeerInternal {
     } else if (Configuration.runtimeInstance().getMode() == Configuration.MODE_JEMU) {
       runKernelTemplateJava(kernel);
     } else {
+      Tweaks.setInstance(new CudaTweaks());
       CudaRuntime2.v().run(kernel, m_rootbeer, m_threadConfig);
     }
-
   }
 
-  public Iterator<Kernel> run(Iterator<Kernel> iter) {
-    if (Configuration.runtimeInstance().getMode() == Configuration.MODE_NEMU) {
-      return runOnNativeCpu(iter);
-    } else if (Configuration.runtimeInstance().getMode() == Configuration.MODE_JEMU) {
-      return runOnCpu(iter);
-    } else {
-      return runOnCudaGpu(iter);
-    }
+  private void runOnCpu(List<Kernel> jobs) {
+    CpuRuntime.v().run(jobs);
   }
 
-  private Iterator<Kernel> runOnCpu(Iterator<Kernel> jobs) {
-    try {
-      PartiallyCompletedParallelJob partial = CpuRuntime.v().run(jobs, m_rootbeer, m_threadConfig);
-      return new ResultIterator(partial, CpuRuntime.v(), m_rootbeer);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-      return null;
-    }
-  }
-
-  private Iterator<Kernel> runOnCudaGpu(Iterator<Kernel> jobs) {
+  private void runOnCudaGpu(List<Kernel> jobs) {
     Tweaks.setInstance(new CudaTweaks());
-    PartiallyCompletedParallelJob partial = CudaRuntime2.v().run(jobs, m_rootbeer, m_threadConfig);
-    return new ResultIterator(partial, CudaRuntime2.v(), m_rootbeer);
+    CudaRuntime2.v().run(jobs, m_rootbeer, m_threadConfig);
   }
 
-  private Iterator<Kernel> runOnNativeCpu(Iterator<Kernel> jobs) {
+  private void runOnNativeCpu(List<Kernel> jobs) {
     Tweaks.setInstance(new NativeCpuTweaks());
-    PartiallyCompletedParallelJob partial = NativeCpuRuntime.v().run(jobs, m_rootbeer, m_threadConfig);
-    return new ResultIterator(partial, NativeCpuRuntime.v(), m_rootbeer);
+    NativeCpuRuntime.v().run(jobs, m_rootbeer, m_threadConfig);
   }
 
   public void setThreadConfig(ThreadConfig thread_config) {

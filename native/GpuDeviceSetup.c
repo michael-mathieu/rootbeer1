@@ -1,5 +1,5 @@
-
-edu.syr.pcpratts.rootbeer.runtime
+#include <jni.h>
+#include <cuda.h>
 
 #define CHECK_STATUS(env,msg,status) \
 if (CUDA_SUCCESS != status) {\
@@ -7,7 +7,7 @@ if (CUDA_SUCCESS != status) {\
   return;\
 }
 
-JNIEXPORT jobject JNICALL Java_edu_syr_pcpratts_rootbeer_runtime2_cuda_GpuDeviceSetup_do
+JNIEXPORT jobject JNICALL Java_edu_syr_pcpratts_rootbeer_runtime2_cuda_GpuDeviceSetup_doGetDevices
   (JNIEnv *env, jobject this_obj)
 {
   int i;
@@ -25,16 +25,25 @@ JNIEXPORT jobject JNICALL Java_edu_syr_pcpratts_rootbeer_runtime2_cuda_GpuDevice
   int mp_count;
   int block_dim_x;
   int grid_dim_x;
+  jclass list_cls;
+  jmethodID list_cons;
+  jmethodID list_add;
+  jobject list_obj;
   jclass gpu_card_cls;
+  jmethodID gpu_card_cons;
+  jobject gpu_card_obj;
+  CUcontext cuContext;
+  jstring device_name;
 
   status = cuInit(0);
   CHECK_STATUS(env,"error in cuInit",status)
 
   cuDeviceGetCount(&num_devices);
       
-  array_list_cls = (*env)->FindClass(env, "java/util/ArrayList");
-  array_list_cons = (*env)->GetMethodID(env, array_list_cls, "<init>", "()V");
-  array_list_add = (*env)->GetMethodID(env, arrayListClass, "add", "(Ljava/lang/Object;)Z");
+  list_cls = (*env)->FindClass(env, "java/util/ArrayList");
+  list_cons = (*env)->GetMethodID(env, list_cls, "<init>", "()V");
+  list_add = (*env)->GetMethodID(env, list_cls, "add", "(Ljava/lang/Object;)Z");
+  list_obj = (*env)->NewObject(env, list_cls, list_cons); 
 
   for(i = 0; i < num_devices; ++i){
     CUdevice dev;
@@ -70,6 +79,8 @@ JNIEXPORT jobject JNICALL Java_edu_syr_pcpratts_rootbeer_runtime2_cuda_GpuDevice
 
     status = cuDeviceGetAttribute(&grid_dim_x, CU_DEVICE_ATTRIBUTE_MAX_GRID_DIM_X, dev);
     CHECK_STATUS(env, "error in cuDeviceGetAttribute", status)
+
+    device_name = (*env)->NewStringUTF(env, str);
     
     gpu_card_cls = (*env)->FindClass(env, "edu/syr/pcpratts/rootbeer/runtime/GpuDevice");
     gpu_card_cons = (*env)->GetMethodID(env, gpu_card_cls, "<init>", "(IIIIIIIIII)V");
@@ -78,9 +89,10 @@ JNIEXPORT jobject JNICALL Java_edu_syr_pcpratts_rootbeer_runtime2_cuda_GpuDevice
       minor_num, device_name, free_mem, total_mem, threads_per_block, mp_count, block_dim_x,
       grid_dim_x);
 
-    (*env)->CallBooleanMethod(env, gpu_card_obj, array_list_add, gpu_card_obj);
+    (*env)->CallBooleanMethod(env, list_obj, list_add, gpu_card_obj);
+
     cuCtxDestroy(cuContext);
   }  
 
-  return gpu_card_obj;
+  return list_obj;
 }
