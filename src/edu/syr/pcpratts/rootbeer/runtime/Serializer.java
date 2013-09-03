@@ -193,6 +193,7 @@ public abstract class Serializer {
         Object ret = f.get(null);     
         return ret;
       } catch(Exception ex){
+        ex.printStackTrace();
         cls = cls.getSuperclass();
       }
     }
@@ -215,11 +216,13 @@ public abstract class Serializer {
   public void writeStaticField(Class cls, String name, Object value){
     while(true){
       try {
+        System.out.println("writeStaticField: "+cls.getName());
         Field f = cls.getDeclaredField(name);
         f.setAccessible(true);
         f.set(null, value);  
         return;
       } catch(Exception ex){
+        ex.printStackTrace();
         cls = cls.getSuperclass();
       } 
     }

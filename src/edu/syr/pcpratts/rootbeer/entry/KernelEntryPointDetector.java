@@ -31,14 +31,14 @@ public class KernelEntryPointDetector implements MethodTester {
     }
     HierarchySootClass soot_class = sm.getHierarchySootClass();
     if(m_runTests == false){
-      if(soot_class.getName().startsWith("edu.syr.pcpratts.rootbeer.testcases.")){
+      if(soot_class.getName().startsWith("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.")){
         return false;
       }
     }
     Iterator<String> iter = soot_class.getInterfaces().iterator();
     while(iter.hasNext()){
       String iface = iter.next();
-      if(iface.equals("edu.syr.pcpratts.rootbeer.runtime.Kernel")){
+      if(iface.equals("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Kernel")){
         return true;
       }
     }

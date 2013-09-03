@@ -266,25 +266,33 @@ public class RootbeerCompiler {
     Iterator<SootClass> iter = Scene.v().getClasses().iterator();
     while(iter.hasNext()){
       SootClass soot_class = iter.next();
+      System.out.println("maybe writing: "+soot_class.getName());
       if(soot_class.isLibraryClass()){
+        System.out.println("  not writing: library class");
         continue;
       }
       String class_name = soot_class.getName();
       boolean write = true;
       for(String runtime_class : m_runtimePackages){
-        if(class_name.startsWith(runtime_class)){
+        if(class_name.startsWith("org.trifort.rootbeer.remap."+runtime_class)){
+          System.out.println("  not writing: runtime class");
           write = false;
           break;
         }
       }
+      /*
       Iterator<SootClass> ifaces = soot_class.getInterfaces().iterator();
       while(ifaces.hasNext()){
         SootClass iface = ifaces.next();
         if(iface.getName().startsWith("edu.syr.pcpratts.rootbeer.test.")){
+          System.out.println("  not writing: iface test");
           write = false;
         }
       }
+       * 
+       */
       if(write){
+        System.out.println("  writing");
         writeClassFile(class_name);
         writeJimpleFile(class_name);
       }

@@ -17,17 +17,18 @@ public class ExtraFields {
   
   public ExtraFields(){
     m_fields = new ArrayList<String>();
-    m_fields.add("<java.lang.Class: java.lang.String name>");
-    m_fields.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_arrayLength>");
-    m_fields.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_arrayIndex>");
-    m_fields.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_array>");
-    m_fields.add("<java.lang.String: char[] value>");
-    m_fields.add("<java.lang.String: int count>");
-    m_fields.add("<java.lang.String: int offset>");
-    m_fields.add("<java.lang.StringBuilder: char[] value>");
-    m_fields.add("<java.lang.StringBuilder: int count>");
-    m_fields.add("<edu.syr.pcpratts.rootbeer.runtime.GpuStopwatch: long m_start>");
-    m_fields.add("<edu.syr.pcpratts.rootbeer.runtime.GpuStopwatch: long m_stop>");
+    String prefix = "org.trifort.rootbeer.remap.";
+    m_fields.add("<"+prefix+"java.lang.Class: java.lang.String name>");
+    m_fields.add("<"+prefix+"edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_arrayLength>");
+    m_fields.add("<"+prefix+"edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_arrayIndex>");
+    m_fields.add("<"+prefix+"edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: int m_array>");
+    m_fields.add("<"+prefix+"java.lang.String: char[] value>");
+    m_fields.add("<"+prefix+"java.lang.String: int count>");
+    m_fields.add("<"+prefix+"java.lang.String: int offset>");
+    m_fields.add("<"+prefix+"java.lang.StringBuilder: char[] value>");
+    m_fields.add("<"+prefix+"java.lang.StringBuilder: int count>");
+    m_fields.add("<"+prefix+"edu.syr.pcpratts.rootbeer.runtime.GpuStopwatch: long m_start>");
+    m_fields.add("<"+prefix+"edu.syr.pcpratts.rootbeer.runtime.GpuStopwatch: long m_stop>");
   }
   
   public List<String> get(){

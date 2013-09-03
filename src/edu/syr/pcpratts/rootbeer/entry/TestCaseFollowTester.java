@@ -20,10 +20,10 @@ public class TestCaseFollowTester implements ClassTester {
   
   public TestCaseFollowTester(){
     m_testCaseInterfaces = new HashSet<String>();
-    m_testCaseInterfaces.add("edu.syr.pcpratts.rootbeer.test.TestApplication");
-    m_testCaseInterfaces.add("edu.syr.pcpratts.rootbeer.test.TestException");
-    m_testCaseInterfaces.add("edu.syr.pcpratts.rootbeer.test.TestKernelTemplate");
-    m_testCaseInterfaces.add("edu.syr.pcpratts.rootbeer.test.TestSerialization");
+    m_testCaseInterfaces.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.test.TestApplication");
+    m_testCaseInterfaces.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.test.TestException");
+    m_testCaseInterfaces.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.test.TestKernelTemplate");
+    m_testCaseInterfaces.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.test.TestSerialization");
   }
   
   public boolean test(HierarchySootClass hsc) {

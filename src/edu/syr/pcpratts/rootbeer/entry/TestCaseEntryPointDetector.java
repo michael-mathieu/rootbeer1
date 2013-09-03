@@ -37,18 +37,18 @@ public class TestCaseEntryPointDetector implements MethodTester {
   public TestCaseEntryPointDetector(String test_case){
     m_testCase = test_case;
     m_testCasePackages = new ArrayList<String>();
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.otherpackage.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.otherpackage2.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.apps.fastmatrixdebug.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.arraysum.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.baseconversion.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.exception.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.gpurequired.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.kerneltemplate.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.ofcoarse.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.remaptest.");
-    m_testCasePackages.add("edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.otherpackage.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.otherpackage2.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.apps.fastmatrixdebug.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.arraysum.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.baseconversion.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.exception.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.gpurequired.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.kerneltemplate.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.ofcoarse.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.remaptest.");
+    m_testCasePackages.add("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.");
 
     m_initialized = false;
     m_entryPoints = new ArrayList<String>();
@@ -93,7 +93,7 @@ public class TestCaseEntryPointDetector implements MethodTester {
           HierarchySootClass hclass = class_hierarchy.getHierarchySootClass(class_name);
           List<String> ifaces = hclass.getInterfaces();
           for(String iface : ifaces){
-            if(iface.equals("edu.syr.pcpratts.rootbeer.runtime.Kernel")){
+            if(iface.equals("org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Kernel")){
               return hclass;
             }
           }
