@@ -38,11 +38,11 @@ public class RootbeerDfs {
     //System.out.println("doing rootbeer dfs: "+signature);
     LinkedList<HierarchySignature> queue = new LinkedList<HierarchySignature>();
     queue.add(new HierarchySignature(signature));
-    queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.java.lang.Integer: java.lang.String toString(int)>"));
-    queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.java.lang.Long: java.lang.String toString(long)>"));
+    queue.add(new HierarchySignature("<java.lang.Integer: java.lang.String toString(int)>"));
+    queue.add(new HierarchySignature("<java.lang.Long: java.lang.String toString(long)>"));
     queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Sentinal: void <init>()>"));
     queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>"));
-    queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>"));
+    queue.add(new HierarchySignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>"));
     
     visited.add(new HierarchySignature("<org.trifort.rootbeer.remap.java.lang.StringBuilder: java.lang.StringBuilder append(double)>"));
     visited.add(new HierarchySignature("<org.trifort.rootbeer.remap.java.lang.StringBuilder: java.lang.StringBuilder append(float)>"));

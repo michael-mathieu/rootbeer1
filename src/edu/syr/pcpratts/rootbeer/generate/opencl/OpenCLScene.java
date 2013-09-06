@@ -203,13 +203,14 @@ public class OpenCLScene {
     Set<String> methods = RootbeerClassLoader.v().getDfsInfo().getMethods();  
     MethodSignatureUtil util = new MethodSignatureUtil();
     for(String method_sig : methods){
+      System.out.println("sig: "+method_sig);
       util.parse(method_sig);
       SootMethod method = util.getSootMethod();
       addMethod(method);
     }
     List<String> extra_methods = new ArrayList<String>();
-    extra_methods.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
-    extra_methods.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
+    extra_methods.add("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
+    extra_methods.add("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
     extra_methods.add("<java.lang.String: void <init>(char[])>");
     extra_methods.add("<java.lang.Object: int hashCode()>");
     extra_methods.add("<java.lang.Boolean: java.lang.String toString(boolean)>");

@@ -156,11 +156,11 @@ public class RootbeerCompiler {
     follow_tester.addSignature("<java.lang.Float: java.lang.String toString(float)>");
     follow_tester.addSignature("<java.lang.Integer: java.lang.String toString(int)>");
     follow_tester.addSignature("<java.lang.Long: java.lang.String toString(long)>");
-    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtime.Sentinal: void <init>()>");
-    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
-    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
-    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtime.Serializer: void <init>(edu.syr.pcpratts.rootbeer.runtime.memory.Memory,edu.syr.pcpratts.rootbeer.runtime.memory.Memory)>");
-    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.CovarientTest: void <init>()>");
+    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Sentinal: void <init>()>");
+    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
+    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
+    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Serializer: void <init>(org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.memory.Memory,org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.memory.Memory)>");
+    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.CovarientTest: void <init>()>");
     RootbeerClassLoader.v().addFollowMethodTester(follow_tester);
     
     if(runtests){
