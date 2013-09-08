@@ -10,8 +10,9 @@ package edu.syr.pcpratts.rootbeer.testcases.rootbeertest.baseconversion;
 import edu.syr.pcpratts.rootbeer.entry.Aug4th2011PerformanceStudy;
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
 import edu.syr.pcpratts.rootbeer.test.TestSerialization;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public class BaseConversionTest implements TestSerialization {
 

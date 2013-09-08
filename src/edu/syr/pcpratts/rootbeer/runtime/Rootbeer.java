@@ -58,6 +58,14 @@ public class Rootbeer implements IRootbeer {
     }
     m_Rootbeer.runAll(job_template);
   }
+
+  public void runAll(org.trifort.rootbeer.remap.java.util.List<Kernel> jobs){
+	List<Kernel> converted = new ArrayList<Kernel>();
+	for(int i = 0; i < jobs.size(); ++i){
+      converted.add(jobs.get(i));
+	}
+	runAll(converted);
+  }
   
   public void runAll(List<Kernel> jobs) {
     if(jobs.isEmpty()){

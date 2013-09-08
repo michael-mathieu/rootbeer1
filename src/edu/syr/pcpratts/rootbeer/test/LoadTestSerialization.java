@@ -7,7 +7,7 @@
 
 package edu.syr.pcpratts.rootbeer.test;
 
-import java.util.List;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public class LoadTestSerialization {
 
@@ -38,7 +38,7 @@ public class LoadTestSerialization {
     return instance;
   }
 
-  List<TestApplication> loadApplication(ClassLoader loader, String class_name) throws Exception {
+  public List<TestApplication> loadApplication(ClassLoader loader, String class_name) throws Exception {
     Object instance = doLoad(loader, class_name);
     TestApplicationFactory factory = (TestApplicationFactory) instance;
     return factory.getProviders();

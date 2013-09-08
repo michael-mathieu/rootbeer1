@@ -16,8 +16,8 @@ import edu.syr.pcpratts.rootbeer.runtime.util.Stopwatch;
 import edu.syr.pcpratts.rootbeer.util.ForceGC;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public class RootbeerTestAgent {
 
@@ -97,7 +97,8 @@ public class RootbeerTestAgent {
       kernel_template_creators.size() + application_creators.size();
     int test_num = 1;
 
-    for(TestSerialization creator : creators){
+    for(int i = 0; i < creators.size(); ++i){
+      TestSerialization creator = creators.get(i);
       System.out.println("[TEST "+test_num+"/"+num_tests+"] "+creator.toString());
       test(creator, false);
       ForceGC.gc();
@@ -113,7 +114,8 @@ public class RootbeerTestAgent {
       ++test_num;
     }
 
-    for(TestException ex_creator : ex_creators){
+    for(int i = 0; i < ex_creators.size(); ++i){
+      TestException ex_creator = ex_creators.get(i);
       System.out.println("[TEST "+test_num+"/"+num_tests+"] "+ex_creator.toString());
       ex_test(ex_creator, false);
       if(m_passed){
@@ -125,8 +127,9 @@ public class RootbeerTestAgent {
       }        
       ++test_num;
     }
-    
-    for(TestSerialization creator : change_thread){
+
+    for(int i = 0; i < change_thread.size(); ++i){
+      TestSerialization creator = change_thread.get(i);
       System.out.println("[TEST "+test_num+"/"+num_tests+"] "+creator.toString());
       testChangeThread(creator, false);
       if(m_passed){
@@ -140,8 +143,9 @@ public class RootbeerTestAgent {
       }        
       ++test_num;
     }
-    
-    for(TestKernelTemplate kernel_template : kernel_template_creators){
+
+    for(int i = 0; i < kernel_template_creators.size(); ++i){
+      TestKernelTemplate kernel_template = kernel_template_creators.get(i);
       System.out.println("[TEST "+test_num+"/"+num_tests+"] "+kernel_template.toString());
       test(kernel_template, false);
       ForceGC.gc();
@@ -156,8 +160,9 @@ public class RootbeerTestAgent {
       }        
       ++test_num;
     }
-    
-    for(TestApplication application : application_creators){
+
+    for(int i = 0; i < application_creators.size(); ++i){
+      TestApplication application = application_creators.get(i);
       System.out.println("[TEST "+test_num+"/"+num_tests+"] "+application.toString());
       if(application.test()){
         System.out.println("  PASSED");
@@ -176,7 +181,8 @@ public class RootbeerTestAgent {
       System.out.println("ALL TESTS PASS!");
     } else {
       System.out.println("Failing tests:");
-      for(String failure : m_failedTests){
+      for(int i = 0; i < m_failedTests.size(); ++i){
+        String failure = m_failedTests.get(i);
         System.out.println("  "+failure);
       }
     } 
@@ -187,8 +193,8 @@ public class RootbeerTestAgent {
     try {      
       Rootbeer rootbeer = new Rootbeer();
       Configuration.setPrintMem(print_mem);
-      List<Kernel> known_good_items = creator.create();
-      List<Kernel> testing_items = creator.create();
+      org.trifort.rootbeer.remap.java.util.List<Kernel> known_good_items = creator.create();
+      org.trifort.rootbeer.remap.java.util.List<Kernel> testing_items = creator.create();
       Stopwatch watch = new Stopwatch();
       watch.start();
       rootbeer.runAll(testing_items);
@@ -280,7 +286,7 @@ public class RootbeerTestAgent {
   private void ex_test(TestException creator, boolean print_mem) {
     Rootbeer rootbeer = new Rootbeer();
     Configuration.setPrintMem(print_mem);
-    List<Kernel> testing_items = creator.create();
+    org.trifort.rootbeer.remap.java.util.List<Kernel> testing_items = creator.create();
     try {
       rootbeer.runAll(testing_items);
       if(rootbeer.getRanGpu() == false){
@@ -329,8 +335,8 @@ public class RootbeerTestAgent {
       int i = 0;
       try {      
         Configuration.setPrintMem(m_printMem);
-        List<Kernel> known_good_items = m_creator.create();
-        List<Kernel> testing_items = m_creator.create();
+        org.trifort.rootbeer.remap.java.util.List<Kernel> known_good_items = m_creator.create();
+        org.trifort.rootbeer.remap.java.util.List<Kernel> testing_items = m_creator.create();
         Stopwatch watch = new Stopwatch();
         watch.start();
         m_rootbeer.runAll(testing_items);

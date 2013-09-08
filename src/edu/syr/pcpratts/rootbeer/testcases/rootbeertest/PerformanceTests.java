@@ -7,10 +7,11 @@
 
 package edu.syr.pcpratts.rootbeer.testcases.rootbeertest;
 
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
+
 import edu.syr.pcpratts.rootbeer.test.TestSerialization;
 import edu.syr.pcpratts.rootbeer.test.TestSerializationFactory;
-import java.util.ArrayList;
-import java.util.List;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.baseconversion.BaseConversionTest;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.gpurequired.BruteForceFFTTest;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.ofcoarse.OfCoarse;

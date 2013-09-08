@@ -7,10 +7,8 @@
 
 package edu.syr.pcpratts.rootbeer.test;
 
-import edu.syr.pcpratts.rootbeer.test.TestException;
-import edu.syr.pcpratts.rootbeer.test.TestExceptionFactory;
-import java.util.ArrayList;
-import java.util.List;
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.exception.NullPointer1Test;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.exception.NullPointer2Test;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.gpurequired.ExceptionBasicTest;

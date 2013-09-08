@@ -9,7 +9,7 @@ package edu.syr.pcpratts.rootbeer.test;
 
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
 import edu.syr.pcpratts.rootbeer.runtime.ThreadConfig;
-import java.util.List;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public interface TestKernelTemplate {
 

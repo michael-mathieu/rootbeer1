@@ -7,7 +7,7 @@
 
 package edu.syr.pcpratts.rootbeer.test;
 
-import java.util.List;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public interface TestSerializationFactory {
 

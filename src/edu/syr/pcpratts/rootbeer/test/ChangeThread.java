@@ -8,8 +8,9 @@
 package edu.syr.pcpratts.rootbeer.test;
 
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.gpurequired.ChangeThreadTest;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public class ChangeThread implements TestSerializationFactory {
 

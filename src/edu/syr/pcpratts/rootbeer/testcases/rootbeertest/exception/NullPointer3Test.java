@@ -9,8 +9,9 @@ package edu.syr.pcpratts.rootbeer.testcases.rootbeertest.exception;
 
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
 import edu.syr.pcpratts.rootbeer.test.TestException;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
 
 public class NullPointer3Test implements TestException {
 

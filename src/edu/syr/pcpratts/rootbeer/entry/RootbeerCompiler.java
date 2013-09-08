@@ -44,7 +44,8 @@ public class RootbeerCompiler {
   private String m_provider;
   private boolean m_enableClassRemapping;
   private MethodTester m_entryDetector;
-  private Set<String> m_runtimePackages;
+  private List<String> m_runtimePackages;
+  private List<String> m_ignorePrefixes;
   
   public RootbeerCompiler(){
     clearOutputFolders();
@@ -59,8 +60,12 @@ public class RootbeerCompiler {
     }
     
     m_enableClassRemapping = true;
-    m_runtimePackages = new HashSet<String>();
+    m_runtimePackages = new ArrayList<String>();
     addRuntimePackages();
+    
+    m_ignorePrefixes = new ArrayList<String>();
+    m_ignorePrefixes.addAll(m_runtimePackages);
+    m_ignorePrefixes.add("edu.syr.pcpratts.rootbeer.testcases.");
   }
   
   private void addRuntimePackages(){
@@ -104,7 +109,8 @@ public class RootbeerCompiler {
     
     //Options.v().set_rbcl_remap_all(Configuration.compilerInstance().getRemapAll());
     Options.v().set_rbcl_remap_all(false);
-    Options.v().set_rbcl_remap_prefix("edu.syr.pcpratts.rootbeer.runtime.remap.");
+    Options.v().set_rbcl_remap_prefix("org.trifort.rootbeer.remap.");
+    Options.v().set_rbcl_remap_ignore_prefix(m_ignorePrefixes);
     
     RootbeerClassLoader.v().addEntryMethodTester(m_entryDetector);
     
@@ -156,11 +162,11 @@ public class RootbeerCompiler {
     follow_tester.addSignature("<java.lang.Float: java.lang.String toString(float)>");
     follow_tester.addSignature("<java.lang.Integer: java.lang.String toString(int)>");
     follow_tester.addSignature("<java.lang.Long: java.lang.String toString(long)>");
-    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Sentinal: void <init>()>");
-    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
-    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
-    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.Serializer: void <init>(org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.memory.Memory,org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtime.memory.Memory)>");
-    follow_tester.addSignature("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.CovarientTest: void <init>()>");
+    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtime.Sentinal: void <init>()>");
+    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
+    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
+    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.runtime.Serializer: void <init>(edu.syr.pcpratts.rootbeer.runtime.memory.Memory,edu.syr.pcpratts.rootbeer.runtime.memory.Memory)>");
+    follow_tester.addSignature("<edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.CovarientTest: void <init>()>");
     RootbeerClassLoader.v().addFollowMethodTester(follow_tester);
     
     if(runtests){
@@ -267,30 +273,19 @@ public class RootbeerCompiler {
     while(iter.hasNext()){
       SootClass soot_class = iter.next();
       System.out.println("maybe writing: "+soot_class.getName());
-      if(soot_class.isLibraryClass()){
+      String class_name = soot_class.getName();
+      if(soot_class.isLibraryClass() && class_name.startsWith("org.trifort.rootbeer.remap.") == false){
         System.out.println("  not writing: library class");
         continue;
       }
-      String class_name = soot_class.getName();
       boolean write = true;
       for(String runtime_class : m_runtimePackages){
-        if(class_name.startsWith("org.trifort.rootbeer.remap."+runtime_class)){
+        if(class_name.startsWith(runtime_class)){
           System.out.println("  not writing: runtime class");
           write = false;
           break;
         }
       }
-      /*
-      Iterator<SootClass> ifaces = soot_class.getInterfaces().iterator();
-      while(ifaces.hasNext()){
-        SootClass iface = ifaces.next();
-        if(iface.getName().startsWith("edu.syr.pcpratts.rootbeer.test.")){
-          System.out.println("  not writing: iface test");
-          write = false;
-        }
-      }
-       * 
-       */
       if(write){
         System.out.println("  writing");
         writeClassFile(class_name);

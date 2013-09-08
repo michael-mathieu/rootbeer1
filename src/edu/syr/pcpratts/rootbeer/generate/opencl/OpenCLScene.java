@@ -209,8 +209,8 @@ public class OpenCLScene {
       addMethod(method);
     }
     List<String> extra_methods = new ArrayList<String>();
-    extra_methods.add("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
-    extra_methods.add("<org.trifort.rootbeer.remap.edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
+    extra_methods.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: edu.syr.pcpratts.rootbeer.runtimegpu.GpuException arrayOutOfBounds(int,int,int)>");
+    extra_methods.add("<edu.syr.pcpratts.rootbeer.runtimegpu.GpuException: void <init>()>");
     extra_methods.add("<java.lang.String: void <init>(char[])>");
     extra_methods.add("<java.lang.Object: int hashCode()>");
     extra_methods.add("<java.lang.Boolean: java.lang.String toString(boolean)>");

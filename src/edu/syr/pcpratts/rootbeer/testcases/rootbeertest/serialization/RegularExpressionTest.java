@@ -9,6 +9,7 @@ package edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization;
 
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
 import edu.syr.pcpratts.rootbeer.test.TestSerialization;
+
 import java.util.ArrayList;
 import java.util.List;
 /*

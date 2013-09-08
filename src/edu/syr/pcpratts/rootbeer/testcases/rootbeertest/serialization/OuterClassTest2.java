@@ -8,9 +8,10 @@
 package edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization;
 
 import edu.syr.pcpratts.rootbeer.runtime.Kernel;
+import org.trifort.rootbeer.remap.java.util.ArrayList;
+import org.trifort.rootbeer.remap.java.util.List;
+
 import edu.syr.pcpratts.rootbeer.test.TestSerialization;
-import java.util.ArrayList;
-import java.util.List;
 import edu.syr.pcpratts.rootbeer.testcases.rootbeertest.serialization.OuterClassRunOnGpu.OuterClassRunOnGpu2;
 
 public class OuterClassTest2 implements TestSerialization {
