@@ -179,8 +179,8 @@ public class SharedMemoryManager {
 	}
 
 	/**
-	 * @param type use the constants BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT, INT, UNSIGNED_INT, LONG, CHAR, FLOAT, DOUBLE
-	 * @return The index of this object
+	 * @param id index of this object (unique identifier)
+	 * @param type use the constants BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT, INT, UNSIGNED_INT, LONG, CHAR, FLOAT, DOUBLE	 
 	 */
 	public synchronized static void createInstance(short id, byte type, short... lengthDimensions) {
 		if (id < 0 || id >= getNbMaxObjects()) {
